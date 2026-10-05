@@ -1,0 +1,8 @@
+{
+    "name": "kelas/sistem-informasi-akademik",
+    "description": "Sistem Informasi Akademik sederhana - Workshop Sistem Informasi Web Server (TIF330805), Acara 6: Middleware, Auth Sederhana, dan Struktur Folder Lengkap.",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    }
+}
