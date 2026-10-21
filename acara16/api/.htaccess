@@ -1,0 +1,8 @@
+# Routing RESTful (BKPM Acara 16). Butuh mod_rewrite (aktif di XAMPP).
+RewriteEngine On
+
+# /api/mahasiswa       -> mahasiswa.php
+RewriteRule ^mahasiswa/?$ mahasiswa.php [QSA,L]
+
+# /api/mahasiswa/{id}  -> mahasiswa.php?id={id}  (id divalidasi di PHP)
+RewriteRule ^mahasiswa/([^/]+)/?$ mahasiswa.php?id=$1 [L]

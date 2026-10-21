@@ -1,0 +1,430 @@
+{
+  "info": {
+    "name": "SI Akademik - API Mahasiswa (BKPM Acara 15)",
+    "description": "Koleksi pengujian API Mahasiswa. Atur variabel base_url (default http://localhost/si-akademik).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost/si-akademik"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. GET semua mahasiswa",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });",
+              "pm.test(\"data berupa array\", function () { pm.expect(pm.response.json().data).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. GET semua mahasiswa (tanpa .php)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. GET mahasiswa id=1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });",
+              "pm.test(\"data berupa object\", function () { pm.expect(pm.response.json().data).to.have.property(\"nim\"); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php?id=1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. GET id tidak ada (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", function () { pm.response.to.have.status(404); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php?id=9999",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "9999"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. GET id tidak valid (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", function () { pm.response.to.have.status(400); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php?id=abc",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "abc"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. GET pencarian q=Budi",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php?q=Budi",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "Budi"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "7. POST tambah mahasiswa valid (201)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 201\", function () { pm.response.to.have.status(201); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nim\": \"2401004\",\n    \"nama\": \"Dewi\",\n    \"prodi_id\": 1,\n    \"angkatan\": 2026,\n    \"status\": \"aktif\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "8. POST NIM sudah terdaftar (409)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 409\", function () { pm.response.to.have.status(409); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nim\": \"2401001\",\n    \"nama\": \"Duplikat\",\n    \"prodi_id\": 1,\n    \"angkatan\": 2026\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "9. POST data tidak valid (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", function () { pm.response.to.have.status(400); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nim\": \"abc123\",\n    \"nama\": \"\",\n    \"prodi_id\": 99,\n    \"angkatan\": 1999,\n    \"status\": \"libur\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "10. POST body bukan JSON (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", function () { pm.response.to.have.status(400); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "ini bukan json",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "11. PUT tidak didukung (405)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 405\", function () { pm.response.to.have.status(405); });",
+              "pm.test(\"Response berupa JSON\", function () { pm.response.to.be.json; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/mahasiswa.php",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "mahasiswa.php"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

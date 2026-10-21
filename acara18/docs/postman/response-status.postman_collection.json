@@ -1,0 +1,703 @@
+{
+  "info": {
+    "name": "Sistem Informasi Akademik - Response JSON dan Status Code (BKPM Acara 18)",
+    "description": "Ubah variabel base_url sesuai nama folder, contoh: http://localhost/sistem-informasi-akademik/public. Jalankan request 1 sampai 5 berurutan.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost/sistem-informasi-akademik/public"
+    },
+    {
+      "key": "mhs_id",
+      "value": ""
+    },
+    {
+      "key": "nim_baru",
+      "value": ""
+    },
+    {
+      "key": "prodi_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "A. Skenario berhasil",
+      "item": [
+        {
+          "name": "1. POST tambah mahasiswa (201)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"nim_baru\", String(Math.floor(1000000 + Math.random() * 8999999)));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });",
+                  "pm.collectionVariables.set(\"mhs_id\", pm.response.json().data.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nim\": \"{{nim_baru}}\",\n    \"nama\": \"Andi Saputra\",\n    \"prodi_id\": 1,\n    \"angkatan\": 2026,\n    \"status\": \"aktif\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "2. GET seluruh mahasiswa (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. GET mahasiswa berdasarkan id (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa?id={{mhs_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{mhs_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "4. PUT ubah mahasiswa (200)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"nim_baru\", String(Math.floor(1000000 + Math.random() * 8999999)));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa?id={{mhs_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{mhs_id}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nim\": \"{{nim_baru}}\",\n    \"nama\": \"Andi Saputra Putra\",\n    \"prodi_id\": 2,\n    \"angkatan\": 2026,\n    \"status\": \"aktif\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "5. DELETE hapus mahasiswa (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa?id={{mhs_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{mhs_id}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "B. Skenario gagal (400, 404, 405, 409, 422)",
+      "item": [
+        {
+          "name": "6. GET id tidak ditemukan (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa?id=9999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "9999"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "7. GET id bukan angka (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa?id=abc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "abc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "8. POST NIM kosong (400 + errors)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });",
+                  "pm.test(\"errors.nim ada\", function () { pm.expect(pm.response.json().errors).to.have.property(\"nim\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nim\": \"\",\n    \"nama\": \"Tanpa NIM\",\n    \"prodi_id\": 1,\n    \"angkatan\": 2026\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "9. POST format NIM salah (422 + errors)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 422\", function () { pm.response.to.have.status(422); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });",
+                  "pm.test(\"errors.nim ada\", function () { pm.expect(pm.response.json().errors).to.have.property(\"nim\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nim\": \"abc\",\n    \"nama\": \"NIM Salah\",\n    \"prodi_id\": 1,\n    \"angkatan\": 2026\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "10. POST NIM duplikat (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", function () { pm.response.to.have.status(409); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nim\": \"2401001\",\n    \"nama\": \"Duplikat\",\n    \"prodi_id\": 1,\n    \"angkatan\": 2026\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "11. POST prodi tidak ada (422)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"nim_baru\", String(Math.floor(1000000 + Math.random() * 8999999)));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 422\", function () { pm.response.to.have.status(422); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nim\": \"{{nim_baru}}\",\n    \"nama\": \"Prodi Salah\",\n    \"prodi_id\": 99,\n    \"angkatan\": 2026\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "12. Endpoint tidak ada (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/buku",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "buku"
+              ]
+            }
+          }
+        },
+        {
+          "name": "13. Method tidak diizinkan (405)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 405\", function () { pm.response.to.have.status(405); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mahasiswa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "mahasiswa"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "C. Resource Prodi",
+      "item": [
+        {
+          "name": "14. GET seluruh prodi (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prodi",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "prodi"
+              ]
+            }
+          }
+        },
+        {
+          "name": "15. POST tambah prodi (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });",
+                  "pm.collectionVariables.set(\"prodi_id\", pm.response.json().data.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/prodi",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "prodi"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"kode\": \"{{$timestamp}}\",\n    \"nama\": \"Prodi Percobaan\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "16. DELETE prodi baru (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prodi?id={{prodi_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "prodi"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{prodi_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "17. DELETE prodi yang masih dipakai (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", function () { pm.response.to.have.status(409); });",
+                  "pm.test(\"Format response seragam\", function () { var j = pm.response.json(); pm.expect(j).to.have.property(\"success\"); pm.expect(j).to.have.property(\"message\"); pm.expect(j).to.have.property(\"data\"); pm.expect(j).to.have.property(\"timestamp\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/prodi?id=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "prodi"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
