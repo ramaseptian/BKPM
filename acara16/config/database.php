@@ -4,7 +4,7 @@
 // (hasil export phpMyAdmin dari BKPM Acara 7), yaitu: acara_7
 return [
     'host'     => 'localhost',
-    'dbname'   => 'acara_7',
+    'dbname'   => 'acara_16',
     'username' => 'root',
     'password' => '',
     'charset'  => 'utf8mb4',
