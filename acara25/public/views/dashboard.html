@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f3f4f6; margin: 0; padding: 24px; color: #111827; }
+        .wadah { max-width: 900px; margin: 0 auto; }
+        .atas { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .atas h1 { margin: 0; font-size: 1.4rem; }
+        .kartu { background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px; }
+        .ringkasan { font-size: 0.9rem; color: #6b7280; }
+        .ringkasan strong { display: block; font-size: 2rem; color: #111827; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid #e5e7eb; }
+        th { background: #f9fafb; }
+        form.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+        form.grid label { font-size: 0.8rem; display: block; margin-bottom: 3px; }
+        input, select { width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; }
+        button { padding: 8px 12px; border: 0; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .biru { background: #2563eb; color: #fff; } .kuning { background: #f59e0b; color: #fff; }
+        .merah { background: #dc2626; color: #fff; } .abu { background: #e5e7eb; color: #111827; }
+        #status { color: #6b7280; margin: 10px 0; } #status.galat { color: #b91c1c; }
+        #pesan-form { margin: 10px 0 0; font-size: 0.9rem; min-height: 1.2em; }
+        #pesan-form.sukses { color: #15803d; } #pesan-form.galat { color: #b91c1c; }
+    </style>
+</head>
+<body>
+    <div class="wadah">
+        <div class="atas">
+            <h1>Dashboard</h1>
+            <div>
+                <span id="info-role"></span>
+                <button type="button" id="btn-logout" class="abu">Logout</button>
+            </div>
+        </div>
+
+        <div class="kartu ringkasan">
+            Total Mahasiswa
+            <strong id="total">-</strong>
+        </div>
+
+        <div class="kartu hanya-admin">
+            <h3 id="judul-form" style="margin-top:0">Tambah Mahasiswa</h3>
+            <form id="form-mhs" class="grid">
+                <div><label for="nim">NIM (7 digit)</label><input type="text" id="nim" required></div>
+                <div><label for="nama">Nama</label><input type="text" id="nama" required></div>
+                <div><label for="prodi">Program Studi</label><select id="prodi" required></select></div>
+                <div><label for="angkatan">Angkatan</label><input type="number" id="angkatan" min="2000" max="2100" required></div>
+                <div><label for="status-mhs">Status</label>
+                    <select id="status-mhs"><option value="aktif">aktif</option><option value="cuti">cuti</option><option value="lulus">lulus</option></select></div>
+                <div style="align-self:end">
+                    <button type="submit" id="btn-simpan" class="biru">Simpan</button>
+                    <button type="button" id="btn-batal" class="abu" hidden>Batal</button>
+                </div>
+            </form>
+            <p id="pesan-form"></p>
+        </div>
+
+        <div class="kartu">
+            <p id="status"></p>
+            <table id="tabel-mahasiswa">
+                <thead><tr><th>NIM</th><th>Nama</th><th>Program Studi</th><th>Angkatan</th><th>Status</th><th class="hanya-admin">Aksi</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="common.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

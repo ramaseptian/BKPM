@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f3f4f6; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #111827; }
+        .kartu { width: 340px; background: #fff; border-radius: 10px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        h1 { margin-top: 0; font-size: 1.3rem; text-align: center; }
+        label { display: block; font-size: 0.85rem; margin: 14px 0 4px; }
+        input { width: 100%; box-sizing: border-box; padding: 9px 10px; border: 1px solid #d1d5db; border-radius: 6px; }
+        button { width: 100%; margin-top: 18px; padding: 10px; border: 0; border-radius: 6px; background: #2563eb; color: #fff; font-weight: bold; cursor: pointer; }
+        button:disabled { background: #93c5fd; cursor: wait; }
+        #pesan { color: #b91c1c; font-size: 0.85rem; min-height: 1.2em; margin: 12px 0 0; }
+        .tautan { text-align: center; margin-top: 14px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="kartu">
+        <h1>Login Sistem Akademik</h1>
+        <form id="form-login">
+            <label for="username">Username</label>
+            <input type="text" id="username" required autofocus>
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+            <p id="pesan"></p>
+            <button type="submit" id="btn-login">Masuk</button>
+        </form>
+        <p class="tautan"><a href="index.html">Lihat data tanpa login</a></p>
+    </div>
+    <script src="common.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>
